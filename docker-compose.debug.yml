@@ -1,0 +1,13 @@
+version: '2.1'
+
+services:
+  api-blog:
+    image: api-blog
+    build: .
+    environment:
+      NODE_ENV: development
+    ports:
+      - 3500:3500
+      - 9229:9229
+    ## set your startup file here
+    command: node --inspect index.js
