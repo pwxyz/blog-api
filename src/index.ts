@@ -4,13 +4,15 @@ import * as bodyparser from 'koa-bodyparser';
 
 import * as dotenv from 'dotenv';
 
+import router from './routers';
+
 dotenv.config();
 
-import { getAsync }  from './redis';
+// import { getAsync }  from './redis';
 
 
 
-getAsync('name').then(res => console.log(res));
+// getAsync('name').then(res => console.log(res));
 
 require('./db');
 
@@ -20,10 +22,8 @@ const port = process.env.PORT || 3300;
 
 app.use(cors());
 app.use(bodyparser());
-
-app.use(async ctx => {
-  ctx.body = { message: 'hello world' };
-});
+app.use(router.routes());
+app.use(router.allowedMethods());
 
 
 app.listen(port, () => { console.log('this app is running on ' + port) });
