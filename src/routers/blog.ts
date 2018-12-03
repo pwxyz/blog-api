@@ -8,7 +8,7 @@ import { GET_MESSAGE_SUCCESS, GET_CODE_SUCCESS } from '../constants';
 const blog = new Router({ prefix: 'blog' });
 
 blog.get('/', async ctx => {
-  let data = await Blog.find();
+  let data = await Blog.find().select('-body -comments_url');
   ctx.body = { code: GET_CODE_SUCCESS, message: GET_MESSAGE_SUCCESS, data };
   ctx.state.cache_res = { code: GET_CODE_SUCCESS, message: GET_MESSAGE_SUCCESS, data };
 });

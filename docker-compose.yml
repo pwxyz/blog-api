@@ -17,6 +17,21 @@ services:
       - "27017:27017"
     networks: 
       - mynet
+  blog-api:
+    image: blog-api:v0.0.1
+    volumes:
+      - my-log/:/usr/src/app/log
+    env_file: ./.env
+    environment:
+      - DB_HOST=mongodb
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+      - mongodb
+    networks: 
+      - mynet
+    ports:
+      - "3400:3400"
 
 networks: 
   mynet:
@@ -25,3 +40,4 @@ networks:
 volumes:
   my-redis:
   my-mongodb:
+  my-log:

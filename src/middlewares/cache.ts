@@ -32,12 +32,14 @@ const cache = async (ctx, next) => {
       await next();
       // console.log('设置缓存');
       const objs = ctx.state || {};
+
       let obj = objs['cache_res'] || null;
       if (obj) {
         let config = objs['cache_config'] || {};
         setCache(config['url'] || url, obj, config['expire'] || Number(process.env.REDIS_EXPIRE));
         return;
       }
+
     }
   }
 };
